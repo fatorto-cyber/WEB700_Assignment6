@@ -33,59 +33,66 @@ app.get("/about", (req, res) => {
 });
 
 // Fetch All Students or by Course
-app.get("/students", (req, res) => {
-    if (req.query.course) {
-        collegeData.getStudentsByCourse(req.query.course)
-            .then(data => res.render("students", { students: data }))
-            .catch(() => res.render("students", { students: [] }));
-    } else {
-        collegeData.getAllStudents()
-            .then(data => res.render("students", { students: data }))
-            .catch(() => res.render("students", { message: "No results returned", students: [] }));
+app.get("/students", async (req, res) => {
+    try {
+        let students;
+        if (req.query.course) {
+            students = await collegeData.getStudentsByCourse(req.query.course);
+        } else {
+            students = await collegeData.getAllStudents();
+        }
+        res.render("students", { students });
+    } catch (error) {
+        console.error("Error fetching students:", error);
+        res.render("students", { message: "No results returned", students: [] });
     }
 });
 
 // Fetch All Courses
-app.get("/courses", (req, res) => {
-    collegeData.getCourses()
-        .then(data => res.render("courses", { courses: data }))
-        .catch(() => res.render("courses", { message: "No results returned" }));
+app.get("/courses", async (req, res) => {
+    try {
+        const courses = await collegeData.getCourses();
+        res.render("courses", { courses });
+    } catch (error) {
+        console.error("Error fetching courses:", error);
+        res.render("courses", { message: "No results returned" });
+    }
 });
 
 // Fetch a Course by ID
-app.get("/course/:id", (req, res) => {
-    const courseId = parseInt(req.params.id); 
-    collegeData.getCourseById(courseId)
-        .then(course => {
-            res.render("course", { course });
-        })
-        .catch(() => res.status(404).send("Course not found"));
+app.get("/course/:id", async (req, res) => {
+    const courseId = parseInt(req.params.id, 10);
+    try {
+        const course = await collegeData.getCourseById(courseId);
+        res.render("course", { course });
+    } catch (error) {
+        console.error("Error fetching course:", error);
+        res.status(404).send("Course not found");
+    }
 });
 
 // Fetch Student by Student Number and Render Update Form
-app.get("/student/:num", (req, res) => {
+app.get("/student/:num", async (req, res) => {
     const studentNum = req.params.num;
-    collegeData.getStudentByNum(studentNum)
-        .then(student => {
-            collegeData.getCourses()
-                .then(courses => {
-                    res.render("student", { student, courses });
-                })
-                .catch(err => {
-                    res.status(500).send("Error fetching courses.");
-                });
-        })
-        .catch(() => res.render("student", { student: null }));
+    try {
+        const student = await collegeData.getStudentByNum(studentNum);
+        const courses = await collegeData.getCourses();
+        res.render("student", { student, courses });
+    } catch (error) {
+        console.error("Error fetching student:", error);
+        res.render("student", { student: null });
+    }
 });
 
 // Handle Student Update
-app.post("/student/update", (req, res) => {
-    collegeData.updateStudent(req.body)
-        .then(() => res.redirect("/students"))
-        .catch(err => {
-            console.error("Error updating student:", err);
-            res.status(500).send("There was an error updating the student.");
-        });
+app.post("/student/update", async (req, res) => {
+    try {
+        await collegeData.updateStudent(req.body);
+        res.redirect("/students");
+    } catch (err) {
+        console.error("Error updating student:", err);
+        res.status(500).send("There was an error updating the student.");
+    }
 });
 
 // Handle 404 - No Matching Route
