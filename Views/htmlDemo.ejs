@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Demonstration</title>
+</head>
+<body>
+
+    <!-- Include Navbar (if applicable) -->
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about">About</a> |
+        <a href="/students">Students</a> |
+        <a href="/students/add">Add Student</a>
+    </nav>
+
+    <h1>HTML Demonstration</h1>
+
+    <!-- Images Section -->
+    <section>
+        <h2>Images</h2>
+        <img src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-image.jpg" alt="Sample Image">
+        <p>This section demonstrates the usage of images with proper alt text.</p>
+    </section>
+
+    <!-- Audio Section -->
+    <section>
+        <h2>Audio</h2>
+        <audio controls>
+            <source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-audio.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p>This section demonstrates the usage of an HTML5 audio player.</p>
+    </section>
+
+    <!-- Video Section -->
+    <section>
+        <h2>Video</h2>
+        <video controls>
+            <source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-video.mp4" type="video/mp4">
+            Your browser does not support the video element.
+        </video>
+        <p>This section demonstrates the usage of an HTML5 video player.</p>
+    </section>
+
+    <p><a href="/">Back to Home</a></p>
+
+    <!-- Include Footer (if applicable) -->
+    <% if (typeof footer !== "undefined") { %>
+        <%- include("footer") %>
+    <% } %>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<div class="container">
+    <h2 class="my-4">Courses</h2>
+
+    <!-- Show message if no results -->
+    <% if (typeof message !== "undefined" && message) { %>
+        <div class="alert alert-warning" role="alert">
+            <%= message %>
+        </div>
+    <% } %>
+
+    <% if (courses && courses.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Code</th>
+                        <th>Course Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% courses.forEach(course => { %>
+                        <tr>
+                            <td>
+                                <a href="/course/<%= course.courseId %>">
+                                    <%= course.courseId %>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/course/<%= course.courseId %>">
+                                    <%= course.courseCode %>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/students?course=<%= course.courseId %>">
+                                    <%= course.courseDescription %>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <p>No courses found.</p>
+    <% } %>
+
+    <a href="/" class="btn btn-primary">Back to Home</a>
+</div>

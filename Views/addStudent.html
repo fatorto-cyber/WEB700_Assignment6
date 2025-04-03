@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student - Felix Torto</title>
+    <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul class="nav navbar-nav mr-auto">
+            <li><a class="nav-link" href="/">Home</a></li>
+            <li><a class="nav-link" href="/about">About</a></li>
+            <li><a class="nav-link" href="/htmlDemo">HTML Demo</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/students/add">Add Student</a></li>
+        </ul>
+    </nav>
+
+    <!-- Add Student Form -->
+    <main class="container">
+        <h1>Add a New Student</h1>
+        <form method="POST" action="/students/add">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label>First Name:</label>
+                <input class="form-control" name="firstName" type="text" required>
+                <label>Last Name:</label>
+                <input class="form-control" name="lastName" type="text" required>
+                <label>Email:</label>
+                <input class="form-control" name="email" type="email" required>
+            </fieldset>
+            <fieldset>
+                <legend>Address</legend>
+                <label>Street:</label>
+                <input class="form-control" name="addressStreet" type="text">
+                <label>City:</label>
+                <input class="form-control" name="addressCity" type="text">
+                <label>Province:</label>
+                <input class="form-control" name="addressProvince" type="text">
+            </fieldset>
+            <fieldset>
+                <legend>Academic Information</legend>
+                <label>Enrollment Status:</label><br>
+                <input type="radio" name="enrollmentStatus" value="Full Time"> Full Time
+                <input type="radio" name="enrollmentStatus" value="Part Time"> Part Time
+                <label>Teaching Assistant:</label>
+                <input type="checkbox" name="collegeEmployment">
+                <label>Course:</label>
+                <select class="form-control" name="course">
+                    <option value="1">Relational Database Design and Implementation</option>
+                    <option value="2">Java Programming</option>
+                    <option value="3">Introduction to Cloud Computing</option>
+                    <option value="4">Database Administration and Management</option>
+                    <option value="5">Web Programming</option>
+                    <option value="6">Applied Capstone Project</option>
+                    <option value="7">Database Connectivity Using Java</option>
+                    <option value="8">Accessing Big Data</option>
+                    <option value="9">Datawarehousing</option>
+                    <option value="10">Security in Databases and Web Applications</option>
+                    <option value="11">Work Term Preparation (Work-Integrated Learning option only)</option>
+                </select>
+            </fieldset>
+            <br>
+            <input type="submit" class="btn btn-primary" value="Add Student">
+        </form>
+    </main>
+
+</body>
+</html>

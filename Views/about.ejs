@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" type="text/css" href="/css/theme.css">
+</head>
+<body>
+    <header>
+        <h1>About Me</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/htmlDemo">HTML Demo</a></li>
+                <li><a href="/students">Students</a></li>
+                <li><a href="/students/add">Add Student</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Professional Greeting</h2>
+        <p>Welcome to the About Page! Here's some information about me.</p>
+    </section>
+
+    <section>
+        <h2>About Me</h2>
+        <p>My name is <%= name || "Felix Torto" %>. I am a student in the Business Information Technology program.</p>
+        <p>My student ID is <%= studentID || "168365229" %>.</p>
+        <p>I'm passionate about web development and excited to showcase my learning through this project!</p>
+    </section>
+</body>
+</html>

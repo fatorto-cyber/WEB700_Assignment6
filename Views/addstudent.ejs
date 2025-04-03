@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+</head>
+<body>
+    <h1>Add a New Student</h1>
+    <form method="POST" action="/students/add">
+        <label>First Name: <input type="text" name="firstName" required></label><br>
+        <label>Last Name: <input type="text" name="lastName" required></label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Street: <input type="text" name="addressStreet" required></label><br>
+        <label>City: <input type="text" name="addressCity" required></label><br>
+        <label>Province: <input type="text" name="addressProvince" required></label><br>
+        <label>TA: <input type="checkbox" name="TA"></label><br>
+        <label>Status: 
+            <select name="status" required>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+            </select>
+        </label><br>
+        <label>Course: 
+            <input type="number" name="course" min="1" max="11" required>
+        </label><br>
+        <button type="submit">Add Student</button>
+    </form>
+    <p><a href="/students">Back to Students</a></p>
+</body>
+</html>

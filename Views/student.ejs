@@ -1,0 +1,57 @@
+<%- include('header') %>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Edit Student</h2>
+        <form method="POST" action="/student/update">
+            <div class="form-group">
+                <label for="studentNum">Student Number</label>
+                <input type="text" class="form-control" id="studentNum" name="studentNum" value="<%= student.studentNum %>" readonly />
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" value="<%= student.firstName %>" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" value="<%= student.lastName %>" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= student.email %>" />
+            </div>
+            <div class="form-group">
+                <label for="addressStreet">Street Address</label>
+                <input type="text" class="form-control" id="addressStreet" name="addressStreet" value="<%= student.addressStreet %>" />
+            </div>
+            <div class="form-group">
+                <label for="addressCity">City</label>
+                <input type="text" class="form-control" id="addressCity" name="addressCity" value="<%= student.addressCity %>" />
+            </div>
+            <div class="form-group">
+                <label for="addressProvince">Province</label>
+                <input type="text" class="form-control" id="addressProvince" name="addressProvince" value="<%= student.addressProvince %>" />
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label><br>
+                <label><input type="radio" name="status" value="Full Time" <%= student.status === 'Full Time' ? 'checked' : '' %> /> Full Time</label>
+                <label><input type="radio" name="status" value="Part Time" <%= student.status === 'Part Time' ? 'checked' : '' %> /> Part Time</label>
+            </div>
+            <div class="form-group">
+                <label for="TA">Teaching Assistant (TA)</label>
+                <input type="checkbox" id="TA" name="TA" <%= student.TA ? 'checked' : '' %> />
+            </div>
+            <div class="form-group">
+                <label for="course">Course</label>
+                <select class="form-control" id="course" name="course">
+                    <% courses.forEach(course => { %>
+                        <option value="<%= course.courseId %>" <%= student.course === course.courseId ? 'selected' : '' %> >
+                            <%= course.courseCode %> - <%= course.courseDescription %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Student</button>
+        </form>
+    </div>
+</div>
+<%- include('footer') %>

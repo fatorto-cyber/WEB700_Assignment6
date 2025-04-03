@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || "My Website" %></title>
+    <link rel="stylesheet" type="text/css" href="/css/theme.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/htmlDemo">HTML Demo</a></li>
+            <li class="nav-item"><a class="nav-link" href="/students">Students</a></li>
+            <li class="nav-item"><a class="nav-link" href="/students/add">Add Student</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        {{{ body }}}
+    </div>
+
+</body>
+</html>
