@@ -5,28 +5,35 @@
         <h2><%= course.courseDescription %></h2>
         <hr />
         
-        <!-- Course Info Form -->
-        <form>
+        <!-- Course Info Form for Editing -->
+        <form method="POST" action="/course/update">
+            <!-- Hidden field to hold the courseId -->
+            <input type="hidden" name="courseId" value="<%= course.courseId %>" />
+
             <div class="row">
-                <!-- Course Code Field -->
+                <!-- Course Code Field (Editable) -->
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="courseCode">Course Code</label>
-                        <input class="form-control" id="courseCode" name="courseCode" type="text" readonly value="<%= course.courseCode %>" />
+                        <input class="form-control" id="courseCode" name="courseCode" type="text" value="<%= course.courseCode %>" />
                     </div>
                 </div>
                 
-                <!-- Course Description Field -->
+                <!-- Course Description Field (Editable) -->
                 <div class="col-md-9">
                     <div class="form-group">
                         <label for="courseDescription">Course Description</label>
-                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" readonly value="<%= course.courseDescription %>" />
+                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" value="<%= course.courseDescription %>" />
                     </div>
                 </div>
             </div>
-            <hr />
+
+            <!-- Submit button for updating the course -->
+            <button type="submit" class="btn btn-primary">Update Course</button>
         </form>
-        
+
+        <hr />
+
         <!-- Link back to Courses List -->
         <a href="/courses" class="btn btn-secondary">Back to Courses</a>
     </div>

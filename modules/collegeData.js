@@ -231,3 +231,62 @@ module.exports.updateStudent = function (studentData) {
       });
   });
 };
+
+// Add a new course
+module.exports.addCourse = function (courseData) {
+  return new Promise(function (resolve, reject) {
+    // Replace empty string values with null
+    for (let key in courseData) {
+      if (courseData[key] === "") {
+        courseData[key] = null;
+      }
+    }
+
+    // Create the course in the database
+    Course.create(courseData)
+      .then(() => resolve("Course successfully created"))
+      .catch((error) => reject("Unable to create course: " + error));
+  });
+};
+
+// Update an existing course
+module.exports.updateCourse = function (courseData) {
+  return new Promise(function (resolve, reject) {
+    // Replace empty string values with null
+    for (let key in courseData) {
+      if (courseData[key] === "") {
+        courseData[key] = null;
+      }
+    }
+
+    // Update the course in the database using the courseId
+    Course.update(courseData, {
+      where: { courseId: courseData.courseId }
+    })
+      .then(([updated]) => {
+        if (updated === 0) {
+          reject("No course found with that ID");
+        } else {
+          resolve("Course successfully updated");
+        }
+      })
+      .catch((error) => reject("Unable to update course: " + error));
+  });
+};
+
+// Delete a course by courseId
+module.exports.deleteCourseById = function (id) {
+  return new Promise(function (resolve, reject) {
+    Course.destroy({
+      where: { courseId: id }
+    })
+      .then((deleted) => {
+        if (deleted === 0) {
+          reject("No course found with that ID");
+        } else {
+          resolve("Course successfully deleted");
+        }
+      })
+      .catch((error) => reject("Unable to delete course: " + error));
+  });
+};

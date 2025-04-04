@@ -16,6 +16,7 @@
                         <th>Course ID</th>
                         <th>Course Code</th>
                         <th>Course Description</th>
+                        <th></th> <!-- For the "Remove" button column -->
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,10 @@
                                     <%= course.courseDescription %>
                                 </a>
                             </td>
+                            <td>
+                                <!-- Remove button with a link to delete the course -->
+                                <a href="/course/delete/<%= course.courseId %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Remove</a>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -45,5 +50,10 @@
         <p>No courses found.</p>
     <% } %>
 
+    <!-- Link to Add New Course -->
+    <a href="/courses/add" class="btn btn-success">Add New Course</a>
+
+    <hr />
+    <!-- Link to go back to Home page -->
     <a href="/" class="btn btn-primary">Back to Home</a>
 </div>

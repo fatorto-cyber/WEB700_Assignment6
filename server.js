@@ -64,10 +64,69 @@ app.get("/course/:id", async (req, res) => {
     const courseId = parseInt(req.params.id, 10);
     try {
         const course = await collegeData.getCourseById(courseId);
-        res.render("course", { course });
+        if (course) {
+            res.render("course", { course });
+        } else {
+            res.status(404).send("Course not found");
+        }
     } catch (error) {
         console.error("Error fetching course:", error);
         res.status(404).send("Course not found");
+    }
+});
+
+// Add Course - Render the form to add a new course
+app.get("/courses/add", (req, res) => {
+    res.render("addCourse", { title: "Add New Course" });
+});
+
+// Add Course - Handle POST request to add a new course
+app.post("/courses/add", async (req, res) => {
+    try {
+        await collegeData.addCourse(req.body);  // Call the addCourse function
+        res.redirect("/courses");  // Redirect to /courses after adding a new course
+    } catch (err) {
+        console.error("Error adding course:", err);
+        res.status(500).send("Unable to add course: " + err);
+    }
+});
+
+// Update Course - Render the form to update an existing course
+app.get("/course/update/:id", async (req, res) => {
+    const courseId = req.params.id;
+    try {
+        const course = await collegeData.getCourseById(courseId);
+        if (course) {
+            res.render("updateCourse", { title: `Update Course - ${course.courseCode}`, course });
+        } else {
+            res.status(404).send("Course not found");
+        }
+    } catch (err) {
+        console.error("Error fetching course for update:", err);
+        res.status(500).send("Unable to retrieve course details.");
+    }
+});
+
+// Update Course - Handle POST request to update an existing course
+app.post("/course/update", async (req, res) => {
+    try {
+        await collegeData.updateCourse(req.body);  // Call the updateCourse function
+        res.redirect("/courses");  // Redirect to /courses after updating the course
+    } catch (err) {
+        console.error("Error updating course:", err);
+        res.status(500).send("Unable to update course: " + err);
+    }
+});
+
+// Delete Course - Handle GET request to delete a course
+app.get("/course/delete/:id", async (req, res) => {
+    const courseId = req.params.id;
+    try {
+        await collegeData.deleteCourseById(courseId);  // Call the deleteCourseById function
+        res.redirect("/courses");  // Redirect to /courses after deletion
+    } catch (err) {
+        console.error("Error deleting course:", err);
+        res.status(500).send("Unable to remove course. Course not found.");
     }
 });
 
