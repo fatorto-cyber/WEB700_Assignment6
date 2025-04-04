@@ -1,52 +1,56 @@
 <% if (students && students.length > 0) { %>
-    <div class="row">
-      <main class="col-md-12">
-        <h2>Student List</h2>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
+  <div class="row">
+    <main class="col-md-12">
+      <h2>Student List</h2>
+      <!-- Add New Student Button -->
+      <a href="/students/add" class="btn btn-success float-right mb-3">Add New Student</a>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Student Number</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Status</th>
+              <th>Course ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% students.forEach(function(student) { %>
               <tr>
-                <th>Student Number</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Status</th>
-                <th>Course ID</th>
+                <td><%= student.studentNum %></td>
+                <td>
+                  <a href="/student/<%= student.studentNum %>">
+                    <%= student.firstName %> <%= student.lastName %>
+                  </a>
+                </td>
+                <td>
+                  <a href="mailto:<%= student.email %>">
+                    <%= student.email %>
+                  </a>
+                </td>
+                <td>
+                  <%= student.addressStreet %>, <%= student.addressCity %>, <%= student.addressProvince %>
+                </td>
+                <td><%= student.status %></td>
+                <td>
+                  <a href="/students?course=<%= student.course %>">
+                    <%= student.course %>
+                  </a>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              <% students.forEach(function(student) { %>
-                <tr>
-                  <td><%= student.studentNum %></td>
-                  <td>
-                    <a href="/student/<%= student.studentNum %>">
-                      <%= student.firstName %> <%= student.lastName %>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="mailto:<%= student.email %>">
-                      <%= student.email %>
-                    </a>
-                  </td>
-                  <td>
-                    <%= student.addressStreet %>, <%= student.addressCity %>, <%= student.addressProvince %>
-                  </td>
-                  <td><%= student.status %></td>
-                  <td>
-                    <a href="/students?course=<%= student.course %>">
-                      <%= student.course %>
-                    </a>
-                  </td>
-                </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-  <% } else { %>
-    <div class="col-md-12 text-center">
-      <strong>No students found</strong>
-    </div>
-  <% } %>
-  
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+<% } else { %>
+  <div class="col-md-12 text-center">
+    <strong>No students found</strong>
+    <!-- Optionally, show the "Add New Student" button here too -->
+    <br>
+    <a href="/students/add" class="btn btn-success mt-3">Add New Student</a>
+  </div>
+<% } %>

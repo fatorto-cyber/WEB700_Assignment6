@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 // Set up Sequelize connection to your PostgreSQL database using the actual details
-var sequelize = new Sequelize('Seneca DB Instance', 'Seneca DB Instance_owner', 'npg_QEPYNgI19Opl', {
+const sequelize = new Sequelize('Seneca DB Instance', 'Seneca DB Instance_owner', 'npg_QEPYNgI19Opl', {
   host: 'ep-dawn-glitter-a55h60yn-pooler.us-east-2.aws.neon.tech',
   dialect: 'postgres',
   port: 5432,
@@ -97,4 +97,137 @@ module.exports.initialize = function () {
   });
 };
 
-// Other methods for CRUD operations remain unchanged...
+// Fetch all students
+module.exports.getAllStudents = function () {
+  return new Promise((resolve, reject) => {
+    Student.findAll()
+      .then((students) => {
+        resolve(students);
+      })
+      .catch(() => {
+        reject("No results returned");
+      });
+  });
+};
+
+// Fetch students by courseId
+module.exports.getStudentsByCourse = function (course) {
+  return new Promise((resolve, reject) => {
+    Student.findAll({
+      where: {
+        course: course
+      }
+    })
+      .then((students) => {
+        resolve(students);
+      })
+      .catch(() => {
+        reject("No results returned");
+      });
+  });
+};
+
+// Fetch a student by their studentNum
+module.exports.getStudentByNum = function (num) {
+  return new Promise((resolve, reject) => {
+    Student.findAll({
+      where: {
+        studentNum: num
+      }
+    })
+      .then((students) => {
+        if (students.length > 0) {
+          resolve(students[0]);
+        } else {
+          reject("No results returned");
+        }
+      })
+      .catch(() => {
+        reject("No results returned");
+      });
+  });
+};
+
+// Fetch all courses
+module.exports.getCourses = function () {
+  return new Promise((resolve, reject) => {
+    Course.findAll()
+      .then((courses) => {
+        resolve(courses);
+      })
+      .catch(() => {
+        reject("No results returned");
+      });
+  });
+};
+
+// Fetch a course by its courseId
+module.exports.getCourseById = function (id) {
+  return new Promise((resolve, reject) => {
+    Course.findAll({
+      where: {
+        courseId: id
+      }
+    })
+      .then((courses) => {
+        if (courses.length > 0) {
+          resolve(courses[0]);
+        } else {
+          reject("No results returned");
+        }
+      })
+      .catch(() => {
+        reject("No results returned");
+      });
+  });
+};
+
+// Add a new student
+module.exports.addStudent = function (studentData) {
+  return new Promise((resolve, reject) => {
+    // Ensure TA is explicitly set
+    studentData.TA = (studentData.TA) ? true : false;
+
+    // Replace empty string values with null
+    for (let key in studentData) {
+      if (studentData[key] === "") {
+        studentData[key] = null;
+      }
+    }
+
+    Student.create(studentData)
+      .then(() => {
+        resolve("Student added successfully");
+      })
+      .catch(() => {
+        reject("Unable to create student");
+      });
+  });
+};
+
+// Update an existing student
+module.exports.updateStudent = function (studentData) {
+  return new Promise((resolve, reject) => {
+    // Ensure TA is explicitly set
+    studentData.TA = (studentData.TA) ? true : false;
+
+    // Replace empty string values with null
+    for (let key in studentData) {
+      if (studentData[key] === "") {
+        studentData[key] = null;
+      }
+    }
+
+    Student.update(studentData, {
+      where: {
+        studentNum: studentData.studentNum
+      }
+    })
+      .then(() => {
+        resolve("Student updated successfully");
+      })
+      .catch(() => {
+        reject("Unable to update student");
+      });
+  });
+};
